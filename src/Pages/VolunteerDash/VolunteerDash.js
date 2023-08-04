@@ -55,7 +55,7 @@ export default function VolunteerDeshboard() {
         </ul>
       </div>
 
-      <div className="w-9/12">
+      <div className="w-9/12" style={{ backgroundColor: "#F5F7FE" }}>
         <Outlet></Outlet>
       </div>
     </div>

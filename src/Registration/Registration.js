@@ -10,6 +10,7 @@ import { fs } from "./../Firebase/firebase.config";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
 const auth = getAuth(app);
 const styles = {
   inputStyles: {
@@ -111,7 +112,10 @@ export default function Registration() {
               alert(
                 "Email verification send !After verification you can login"
               );
-
+              var imgPath = "../../public/back.png";
+              updateProfile(auth.currentUser, { photoURL: imgPath }).then(
+                "Photo addded!!"
+              );
               setDoc(
                 doc(fs, "volunteers", userCredential.user.uid),
 
@@ -121,7 +125,7 @@ export default function Registration() {
                   address: address,
                   phone: phone,
                   password: password,
-                  image: "",
+                  imageRef: "",
                   availableArea: "",
                 }
               );
@@ -134,9 +138,10 @@ export default function Registration() {
             });
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setError(errorMessage);
+          if (error.code === "auth/email-already-in-use") {
+            // The email is already registered.
+            alert("User exists.Please try with a different email!");
+          }
         });
     } else {
       return false;

@@ -48,7 +48,7 @@ export default function Login() {
           if (!userCredential.user.emailVerified) {
             alert("Please verify your email first,then try to login!");
           } else {
-            navigate("/volunteer");
+            navigate("/volunteer/profile");
             setLogIn(true);
           }
         })

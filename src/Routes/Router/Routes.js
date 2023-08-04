@@ -5,10 +5,10 @@ import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 
 import Registration from "../../Registration/Registration";
-import WelcomePage from "../../Pages/WelcomePage.js/WelcomePage";
-import VolunteerProfile from "../../VolunteerProfile/VolunteerProfile";
+import VolunteerProfile from "../../Pages/VolunteerDash/VolunteerProfile/VolunteerProfile";
 import Admin from "./../../Admin/Admin";
 import VolunteerDash from "../../Pages/VolunteerDash/VolunteerDash";
+import EditProfile from "../../Pages/VolunteerDash/EditProfile/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +35,10 @@ export const router = createBrowserRouter([
           {
             path: "profile",
             element: <VolunteerProfile></VolunteerProfile>,
+          },
+          {
+            path: "editProfile",
+            element: <EditProfile></EditProfile>,
           },
         ],
       },
