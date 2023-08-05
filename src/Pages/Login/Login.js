@@ -4,6 +4,7 @@ import app from "../../Firebase/firebase.config";
 import { useNavigation } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const auth = getAuth(app);
 
 const styles = {
@@ -52,7 +53,11 @@ export default function Login() {
             setLogIn(true);
           }
         })
-        .catch((err) => console.log(err.errorMessage));
+        .catch((err) => {
+          if (err.code === "auth/user-not-found") {
+            alert("User email or password is incorrect !");
+          }
+        });
     }
   };
   return (

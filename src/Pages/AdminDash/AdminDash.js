@@ -1,23 +1,29 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
-export default function VolunteerDash() {
+export default function AdminDash() {
   const menuitems = [
     {
-      route: "profile",
-      name: "Profile",
-      icon: "",
-      divider: false,
-    },
-    {
-      route: "allvolunteers",
+      route: "volunteers",
       name: "All Volunteers",
       icon: "",
       divider: true,
     },
     {
       route: "projects",
-      name: "Available Projects",
+      name: "All Projects",
+      icon: "",
+      divider: false,
+    },
+    {
+      route: "newproject",
+      name: "Add New Project",
+      icon: "",
+      divider: true,
+    },
+    {
+      route: "helps",
+      name: "Help Requests",
       icon: "",
       divider: false,
     },
@@ -33,7 +39,7 @@ export default function VolunteerDash() {
           />
           <div>
             <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">
-              User
+              Admin
             </h4>
             {/* <span className="text-sm tracking-wide flex items-center space-x-1">
               icon

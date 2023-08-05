@@ -20,23 +20,6 @@ export default function VolunteerProfile() {
   useEffect(() => {
     auth.onAuthStateChanged((volunteer) => {
       if (volunteer) {
-        // getDocs(collection(fs, "volunteers")).then((querySnapshot) => {
-        //   const usersInfo = [];
-        //   querySnapshot.forEach((doc) => {
-        //     const userInfo = {
-        //       name: doc.data().name,
-        //       email: doc.data().email,
-        //       phone: doc.data().phone,
-        //       address: doc.data().address,
-        //       image: doc.data().image,
-        //       availableArea: doc.data().availableArea,
-        //     };
-
-        //     usersInfo.push(userInfo);
-        //   });
-        //   //console.log(usersInfo);
-        // });
-
         async function getUserDoc() {
           const docRef = doc(fs, "volunteers", volunteer.uid);
           await getDoc(docRef)
@@ -44,7 +27,7 @@ export default function VolunteerProfile() {
               setUser(doc.data());
 
               getDownloadURL(
-                ref(storage, `images/ProfilePictures/${doc.data().name}`)
+                ref(storage, `images/ProfilePictures/${doc.data().uid}`)
               )
                 .then((photoUrl) => {
                   console.log(photoUrl);
@@ -56,6 +39,9 @@ export default function VolunteerProfile() {
         }
 
         getUserDoc();
+      } else {
+        navigate("/login");
+        // alert("Please Register or  Login first ! ");
       }
     });
   }, []);
@@ -71,7 +57,7 @@ export default function VolunteerProfile() {
           borderBottom: "5px solid gray",
         }}
       >
-        {userPhoto === null || user === {} ? (
+        {user === {} ? (
           <div class="d-flex justify-content-center mt-auto mb-auto">
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
@@ -100,16 +86,29 @@ export default function VolunteerProfile() {
             </div>
             <div className="row p-4">
               <div className="col-md-4 d-flex flex-col justify-center ">
-                <img
-                  className="card-img-top img-fluid mb-3 img-thumbnail"
-                  src={userPhoto}
-                  alt="Card image cap"
-                  id="img-preview"
-                  style={{
-                    width: "300px",
-                    height: "250px",
-                  }}
-                />
+                {userPhoto ? (
+                  <img
+                    className="card-img-top img-fluid mb-3 img-thumbnail"
+                    src={userPhoto}
+                    alt="Card image cap"
+                    id="img-preview"
+                    style={{
+                      width: "300px",
+                      height: "250px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    className="card-img-top img-fluid mb-3 img-thumbnail"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                    alt="Card image cap"
+                    id="img-preview"
+                    style={{
+                      width: "300px",
+                      height: "250px",
+                    }}
+                  />
+                )}
               </div>
               <div className="col-md-8">
                 <div className="card-body">

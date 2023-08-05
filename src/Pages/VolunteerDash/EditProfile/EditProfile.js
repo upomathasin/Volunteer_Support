@@ -8,12 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { storage } from "../../../Firebase/firebase.config";
+const styles = {
+  inputStyles: {
+    padding: "8px",
+    borderRadius: "8px",
+    border: "2px solid lightgray",
+    backgroundColor: "#F5F7FE",
+  },
+};
 export default function EditProfile() {
   const auth = getAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [updatedPhoto, setUpdatePhoto] = useState("");
+  const [updatedPhoto, setUpdatePhoto] = useState(location.state.imageRef);
+  const [uid, setUid] = useState(location.state.uid);
   const [userEmail, setUserEmail] = useState(location.state.email);
   const [updatedPhone, setUpdatedPhone] = useState(location.state.phone);
   const [updatedAddress, setUpdatedAddress] = useState(location.state.address);
@@ -23,14 +32,19 @@ export default function EditProfile() {
   const [validate, setValidate] = useState(false);
   const [updatedName, setUpdatedName] = useState(location.state.name);
   const [userPhoto, setUserPhoto] = useState(null);
-  const [availableArea, setUpdatedAvailableArea] = useState(null);
+  const [availableArea, setUpdatedAvailableArea] = useState(
+    location.state.availableArea
+  );
   useEffect(() => {
-    getDownloadURL(ref(storage, `images/ProfilePictures/${updatedName}`))
+    getDownloadURL(ref(storage, `images/ProfilePictures/${uid}`))
       .then((photoUrl) => {
         console.log(photoUrl);
         setUserPhoto(photoUrl);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setUserPhoto(null);
+      });
   }, []);
 
   const handleSave = (event) => {
@@ -53,6 +67,7 @@ export default function EditProfile() {
       phone: updatedPhone,
       address: updatedAddress,
       availableArea: availableArea,
+      imageRef: userPhoto,
     })
       .then(() => {
         alert("Profile Updated successfully!!");
@@ -70,7 +85,7 @@ export default function EditProfile() {
 
     // console.log(img);
 
-    const storageRef = ref(storage, `images/ProfilePictures/${updatedName}`);
+    const storageRef = ref(storage, `images/ProfilePictures/${uid}`);
 
     uploadBytes(storageRef, img)
       .then((result) => {
@@ -87,23 +102,32 @@ export default function EditProfile() {
           boxShadow: "1px 1px  gray",
           backgroundColor: "white",
           borderRadius: 0,
-          borderBottom: "5px solid gray",
+          borderTop: "10px solid  #195b7f",
+          backgroundColor: "white ",
         }}
       >
-        <div className="d-flex justify-between">
-          <div>My Profile</div>
-          <div></div>
-        </div>
-        <div className="row">
-          <div className="col-md-4 d-flex flex-col justify-center ">
-            <img
-              src={userPhoto}
-              className="card-img-top img-fluid mb-3 img-thumbnail"
-              alt="Card image cap"
-              id="img-preview"
-              style={{ width: "300px", height: "250px" }}
-            />
+        <div className="d-flex justify-between"></div>
 
+        <div className="row">
+          <p className="text-center h3">Edit Profile</p>
+          <div className="col-md-4 d-flex flex-col justify-center ">
+            {userPhoto ? (
+              <img
+                src={userPhoto}
+                className="card-img-top img-fluid mb-3 img-thumbnail"
+                alt="Card image cap"
+                id="img-preview"
+                style={{ width: "300px", height: "250px" }}
+              />
+            ) : (
+              <img
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                className="card-img-top img-fluid mb-3 img-thumbnail"
+                alt="Card image cap"
+                id="img-preview"
+                style={{ width: "300px", height: "250px" }}
+              />
+            )}{" "}
             <label className="btn" for="img-upload" id="img-label">
               upload image
             </label>
@@ -117,39 +141,41 @@ export default function EditProfile() {
           </div>
           <div className="col-md-8">
             <form className="card-body" onSubmit={handleSave}>
-              <p className="card-text">Email:{userEmail}</p>
-
-              <label>Name</label>
+              <label className="font-bold">Name</label>
               <input
                 type="text"
-                className="border border-secondary"
                 name="name"
+                style={styles.inputStyles}
                 defaultValue={updatedName}
                 onChange={(e) => setUpdatedName(e.target.value)}
               />
-              <label>Phone Number</label>
+              <label className="font-bold">Phone Number</label>
               <input
-                className="border border-secondary"
                 defaultValue={updatedPhone}
                 name="phone"
+                style={styles.inputStyles}
                 onChange={(e) => setUpdatedPhone(e.target.value)}
               />
 
-              <label>Address</label>
+              <label className="font-bold">Address</label>
               <input
-                className="border border-secondary"
                 defaultValue={updatedAddress}
                 name="address"
+                style={styles.inputStyles}
                 onChange={(e) => setUpdatedAddress(e.target.value)}
               />
-              <label>Available Area</label>
+              <label className="font-bold">Available Area</label>
               <input
-                className="border border-secondary"
-                defaultValue={""}
+                style={styles.inputStyles}
+                defaultValue={availableArea}
                 name="availableAra"
                 onChange={(e) => setUpdatedAvailableArea(e.target.value)}
               />
-              <button type="submit" className="bg-primary btn">
+              <button
+                type="submit"
+                className="btn mt-2"
+                style={{ backgroundColor: "#195b7f", color: "white" }}
+              >
                 Save Changes
               </button>
             </form>

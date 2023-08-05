@@ -120,12 +120,13 @@ export default function Registration() {
                 doc(fs, "volunteers", userCredential.user.uid),
 
                 {
+                  uid: userCredential.user.uid,
                   name: name,
                   email: email,
                   address: address,
                   phone: phone,
                   password: password,
-                  imageRef: "",
+                  imageRef: null,
                   availableArea: "",
                 }
               );

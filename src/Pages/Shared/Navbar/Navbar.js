@@ -56,8 +56,11 @@ export default function Navbar({ desboard }) {
             </ul>
           </div>
 
-          <Link to="/" className="btn btn-ghost normal-case text-xl text-white">
-            Disaster Management
+          <Link
+            to="/home"
+            className="btn btn-ghost normal-case text-xl text-white"
+          >
+            Blessed Hands
           </Link>
         </div>
 
@@ -75,6 +78,12 @@ export default function Navbar({ desboard }) {
             </li>
             <li>
               <Link to="/login">Log In</Link>
+            </li>
+            <li>
+              <Link to="/admin/volunteers">Admin Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/volunteer/profile">Volunteer Dashboard</Link>
             </li>
             <li>
               <Link to="/about">About Us</Link>
