@@ -46,9 +46,13 @@ export default function Login() {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log(userCredential);
-          if (!userCredential.user.emailVerified) {
+          if (userCredential.user.email === "admin123@gmail.com") {
+            alert("Welcome Admin !");
+            navigate("/admin/volunteers");
+          } else if (!userCredential.user.emailVerified) {
             alert("Please verify your email first,then try to login!");
           } else {
+            alert("Welcome Volunteer !");
             navigate("/volunteer/profile");
             setLogIn(true);
           }
