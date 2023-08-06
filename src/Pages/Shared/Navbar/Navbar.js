@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
+
 export default function Navbar({ desboard }) {
   return (
     <div>
@@ -60,7 +59,7 @@ export default function Navbar({ desboard }) {
             to="/home"
             className="btn btn-ghost normal-case text-xl text-white"
           >
-            Blessed Hands
+            Hands of Blessing
           </Link>
         </div>
 

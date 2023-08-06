@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function ContactUs() {
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  console.log(subject, message);
+
   return (
     <div>
       <div
@@ -17,12 +21,13 @@ export default function ContactUs() {
                 </h3>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Subject</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="email"
+                    placeholder="subject"
                     className="input input-bordered"
+                    onChange={(event) => setSubject(event.target.value)}
                   />
                   <label className="label">
                     <span className="label-text">Message</span>
@@ -31,13 +36,18 @@ export default function ContactUs() {
                     type=""
                     placeholder="Message"
                     className="input input-bordered"
+                    onChange={(event) => setMessage(event.target.value)}
                   />
                   <div className="mt-6 text-center">
                     <button
                       className="btn  w-full"
                       style={{ backgroundColor: "#0D1338", color: "white" }}
                     >
-                      Send
+                      <a
+                        href={`mailto:cse_1932020041@lus.ac.bd ?subject=${subject}&body=${message}`}
+                      >
+                        Send
+                      </a>
                     </button>
                   </div>
                 </div>

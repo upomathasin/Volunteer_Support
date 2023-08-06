@@ -4,9 +4,9 @@ export default function TopBanner() {
   return (
     <div
       className="container-fluid"
-      style={{ backgroundColor: "#0D1338", color: "white" }}
+      style={{ backgroundColor: "#0f1f41", color: "white" }}
     >
-      <div className="hero min-h-screen mb-4">
+      <div className="hero min-h-screen">
         <div className="hero-content flex-col lg:flex-row  ">
           <img
             src="helpHand.png"
@@ -16,9 +16,9 @@ export default function TopBanner() {
           <div className="p-4  justify-center ml-6 text-center ">
             <h1 className="text-5xl font-bold">Hands of Blessing !</h1>
             <p className="py-6 ">
-              We are here to provide timely information, resources, and
-              guidelines to help people prepare for and respond to natural
-              disasters, safeguarding lives and minimizing damage.
+              We are here to build connections between volunteers, create
+              volunteering opportunities and provide necessary support to them.
+              So that the humanity can be served in a better way.
             </p>
             <button
               className="btn border-0 text-white"

@@ -49,18 +49,14 @@ export default function EditProfile() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    // /*RegEx for input validation */
-    // const namePattern = /^[a-zA-z .]+$/;
-    // const phnPattern = /^(\+88)?-?01[3-9]\d{8}$/;
+    //  *RegEx for input validation
+    const namePattern = /^[a-zA-z .]+$/;
+    const phnPattern = /^(\+88)?-?01[3-9]\d{8}$/;
 
-    // /**From input values */
-
-    // let name = event.target.name;
-
-    // let phone = event.target.phone;
-    // console.log(name);
-    // console.log("updated name", updatedName);
-
+    /**From input values */
+    if (updatedName.length === 0 || updatedPhone.length === 0) {
+      alert("Name and phone number must be provided !");
+    }
     const docRef = doc(fs, "volunteers", auth.currentUser.uid);
     updateDoc(docRef, {
       name: updatedName,

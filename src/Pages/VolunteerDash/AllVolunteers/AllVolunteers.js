@@ -43,7 +43,7 @@ export default function AllVolunteers() {
       className="container "
       style={{ maxHeight: "100vh", overflowY: "scroll" }}
     >
-      <h1 className="h1 text-blue-900 my-auto text-center">Volunteers </h1>
+      <h1 className="h1 text-blue-900 my-auto text-center p-4">Volunteers </h1>
       <div className="row gap-4 justify-center">
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
@@ -52,12 +52,13 @@ export default function AllVolunteers() {
               <tr>
                 <th>Name</th>
                 <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Address</th>
                 <th>Available Area</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
               {users.map((user) => (
                 <tr>
                   <td>
@@ -88,41 +89,16 @@ export default function AllVolunteers() {
                     <p>{user.phone}</p>
                   </td>
                   <td>
+                    <p>{user.email}</p>
+                  </td>
+                  <td>
+                    <p>{user.address}</p>
+                  </td>
+                  <td>
                     <p className="text-green-800 font-bold">
                       {user.availableArea}
                     </p>
                   </td>
-                  <th>
-                    {/* The button to open modal */}
-                    <label htmlFor="my-modal" className="btn btn-ghost btn-xs">
-                      Details
-                    </label>
-
-                    {/* Put this part before </body> tag */}
-                    <input
-                      type="checkbox"
-                      id="my-modal"
-                      className="modal-toggle"
-                    />
-                    <div className="modal">
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg py-2">
-                          Name: {user.name}
-                        </h3>
-                        <p>Email: {user.email}</p>
-                        <p>Phone Number: {user.phone}</p>
-                        <p>Address: {user.address}</p>
-                        <p className=" text-green-800">
-                          Available Area: {user.availableArea}
-                        </p>
-                        <div className="modal-action">
-                          <label htmlFor="my-modal" className="btn">
-                            Close
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </th>
                 </tr>
               ))}
             </tbody>

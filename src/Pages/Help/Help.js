@@ -2,11 +2,14 @@ import React from "react";
 
 export default function Help() {
   return (
-    <div className="flex flex-col items-center ">
-      <p className="text-4xl font-bold m-5">
+    <div className="flex flex-col items-center min-h-screen">
+      <p className="text-4xl font-bold m-5 text-gray-700">
         Ask For Volunteer Support In Your Area
       </p>
-      <div className="form-control w-full max-w-md px-5 py-4 m-3">
+      <div
+        className="form-control w-full max-w-md px-5 py-4 m-3 shadow-md"
+        style={{ backgroundColor: "#F2F2F2" }}
+      >
         <p className="h5">We need some information</p>
         <label className="label">
           <span className="label-text">Where do you need support?</span>

@@ -38,41 +38,45 @@ export default function AllProjects() {
   ];
 
   return (
-    <div
-      className="py-6 grid grid-cols-3"
-      style={{ maxHeight: "100vh", overflowY: "scroll" }}
-    >
-      {projects.map((project) => {
-        return (
-          <div className="max-w-sm rounded overflow-hidden shadow-lg m-2">
-            <img
-              className="w-full"
-              src={require(`${project.image}`)}
-              alt="card img"
-            />
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">{project.title}</div>
-              <p className=" mt-3 ">
-                <strong>Location: </strong>
-                {project.location}
-              </p>
-              <p className=" mt-3 ">
-                <strong>Duration: </strong>
-                {project.duration}
-              </p>
-              <p className="text-gray-700 text-base mt-3">
-                <strong>
-                  Description: <br />
-                </strong>
-                {project.description}
-              </p>
+    <div>
+      <div>
+        <h1 className="h1 text-center text-gray-700 p-4">Current Projects</h1>
+      </div>
 
-              <button className="btn bg-emerald-400 mt-2">Edit</button>
-              <button className="btn bg-gray-400 mt-2">Delete</button>
+      <div className="py-6 grid grid-cols-3 min-h-screen">
+        {projects.map((project) => {
+          return (
+            <div className="max-w-sm rounded overflow-hidden shadow-lg m-2">
+              <img
+                className="w-full"
+                src={require(`${project.image}`)}
+                alt="card img"
+              />
+              <div className="px-6 py-4">
+                <div className="font-bold text-xl mb-2">{project.title}</div>
+                <p className=" mt-3 ">
+                  <strong>Location: </strong>
+                  {project.location}
+                </p>
+                <p className=" mt-3 ">
+                  <strong>Duration: </strong>
+                  {project.duration}
+                </p>
+                <p className="text-gray-700 text-base mt-3">
+                  <strong>
+                    Description: <br />
+                  </strong>
+                  {project.description}
+                </p>
+                <div className="card-actions justify-end">
+                  <button className="btn bg-emerald-400 mt-2 w-25">Edit</button>
+                  <button className="btn bg-gray-400 mt-2 w-25">Delete</button>
+                </div>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

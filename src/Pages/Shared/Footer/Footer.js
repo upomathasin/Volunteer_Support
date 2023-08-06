@@ -13,9 +13,13 @@ export default function Footer() {
         <Link className="link link-hover" to="/about">
           About us
         </Link>
-        <Link className="link link-hover">Contact</Link>
-        <Link className="link link-hover">Jobs</Link>
-        <Link className="link link-hover">Press kit</Link>
+
+        <Link to="register" className="link link-hover">
+          Join Us
+        </Link>
+        <Link to="volunteer/allVolunteers" className="link link-hover">
+          Volunteers
+        </Link>
       </div>
       <div>
         <div className="grid grid-flow-col gap-4">
@@ -55,7 +59,7 @@ export default function Footer() {
         </div>
       </div>
       <div>
-        <p>Copyright © 2023 - All right reserved by Disaster Management</p>
+        <p>Copyright © 2023 - All right reserved by Hands of Blessing Team.</p>
       </div>
     </footer>
   );

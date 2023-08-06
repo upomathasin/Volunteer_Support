@@ -18,11 +18,16 @@ import NewProject from "../../Pages/AdminDash/NewProject/NewProject";
 import HelpRequests from "../../Pages/AdminDash/HelpRequests/HelpRequests";
 import Projects from "../../Pages/VolunteerDash/Projects/Projects";
 import AllProjects from "./../../Pages/AdminDash/Projects/AllProjects";
+import AboutUs from "../../AboutUs/AboutUs";
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
     children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
       {
         path: "/home",
         element: <Home></Home>,
@@ -39,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration></Registration>,
+      },
+      {
+        path: "/about",
+        element: <AboutUs></AboutUs>,
       },
       {
         path: "/volunteer",

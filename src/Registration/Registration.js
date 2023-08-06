@@ -112,10 +112,7 @@ export default function Registration() {
               alert(
                 "Email verification send !After verification you can login"
               );
-              var imgPath = "../../public/back.png";
-              updateProfile(auth.currentUser, { photoURL: imgPath }).then(
-                "Photo addded!!"
-              );
+
               setDoc(
                 doc(fs, "volunteers", userCredential.user.uid),
 
