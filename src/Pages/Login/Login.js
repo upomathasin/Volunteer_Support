@@ -76,10 +76,7 @@ export default function Login() {
           boxShadow: "1px 1px 1px 1px gray",
         }}
       >
-        <div className="col-md-6">
-          <img src="regBackground2.png" />
-        </div>
-        <div className="col-md-6">
+        <div className="">
           <div>
             <h2
               className="h2 mt-5"

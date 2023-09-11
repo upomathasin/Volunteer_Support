@@ -5,6 +5,8 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import app from "../../Firebase/firebase.config";
 const auth = getAuth(app);
+const currentUserName = auth.currentUser ? auth.currentUser.displayName : "";
+const currentUserPhoto = auth.currentUser ? auth.currentUser.photoURL : "";
 export default function AdminDash() {
   const navigate = useNavigate();
   const [isAdmin, setAdmin] = useState(false);
@@ -46,6 +48,7 @@ export default function AdminDash() {
       divider: false,
     },
   ];
+
   return (
     <div>
       {isAdmin && (
@@ -54,13 +57,14 @@ export default function AdminDash() {
             <div className="flex items-center space-x-4 p-2 mb-5">
               <img
                 className="h-12 rounded-full"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                src={currentUserName}
                 alt="profile"
               />
               <div>
                 <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">
                   Admin
                 </h4>
+                <p>{currentUserPhoto}</p>
               </div>
             </div>
             <ul className="space-y-2 text-sm">

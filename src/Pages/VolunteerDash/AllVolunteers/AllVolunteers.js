@@ -4,10 +4,7 @@ import { getDocs } from "firebase/firestore";
 import { fs } from "../../../Firebase/firebase.config";
 import { useEffect } from "react";
 import { collection } from "firebase/firestore";
-import { storage } from "../../../Firebase/firebase.config";
-import { getDownloadURL } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
-import { ref } from "firebase/storage";
+
 const auth = getAuth();
 
 export default function AllVolunteers() {

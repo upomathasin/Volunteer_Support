@@ -6,7 +6,7 @@ import { fs } from "../../../Firebase/firebase.config";
 import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { updateProfile } from "firebase/auth";
 import { storage } from "../../../Firebase/firebase.config";
 const styles = {
   inputStyles: {
@@ -36,7 +36,7 @@ export default function EditProfile() {
     location.state.availableArea
   );
   useEffect(() => {
-    getDownloadURL(ref(storage, `images/ProfilePictures/${uid}`))
+    getDownloadURL(ref(storage, uid))
       .then((photoUrl) => {
         console.log(photoUrl);
         setUserPhoto(photoUrl);
@@ -47,7 +47,7 @@ export default function EditProfile() {
       });
   }, []);
 
-  const handleSave = (event) => {
+  const handleSave = async (event) => {
     event.preventDefault();
     //  *RegEx for input validation
     const namePattern = /^[a-zA-z .]+$/;
@@ -58,7 +58,8 @@ export default function EditProfile() {
       alert("Name and phone number must be provided !");
     }
     const docRef = doc(fs, "volunteers", auth.currentUser.uid);
-    updateDoc(docRef, {
+
+    await updateDoc(docRef, {
       name: updatedName,
       phone: updatedPhone,
       address: updatedAddress,
@@ -70,9 +71,16 @@ export default function EditProfile() {
         navigate("/volunteer/profile");
       })
       .catch((err) => alert({ err }));
+
+    await updateProfile(auth.currentUser, {
+      displayName: updatedName,
+      photoURL: userPhoto,
+    })
+      .then(() => {})
+      .catch((err) => console.log(err));
   };
 
-  function handleImgUpload(event) {
+  async function handleImgUpload(event) {
     const img = event.target.files[0];
     const imgName = event.target.files[0].name;
     document.getElementById("img-preview").style.display = "block";
@@ -81,9 +89,9 @@ export default function EditProfile() {
 
     // console.log(img);
 
-    const storageRef = ref(storage, `images/ProfilePictures/${uid}`);
+    const storageRef = ref(storage, uid);
 
-    uploadBytes(storageRef, img)
+    await uploadBytes(storageRef, img)
       .then((result) => {
         setUpdatePhoto(storageRef);
       })

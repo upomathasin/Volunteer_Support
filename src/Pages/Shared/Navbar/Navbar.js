@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function Navbar({ desboard }) {
+export default function Navbar() {
   return (
     <div>
       <div
         className="navbar shadow "
-        style={{ backgroundColor: "#0D1338", color: "white" }}
+        style={{ backgroundColor: "rgb(13, 19, 56)" }}
       >
         <div className="navbar-start ">
           <div className="dropdown">
@@ -64,13 +64,15 @@ export default function Navbar({ desboard }) {
         </div>
 
         <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 text-white">
             <li>
               <Link to="/home">Home</Link>
             </li>
 
             <li>
-              <Link to="/help">Ask help</Link>
+              <Link className="nav-link text-white " to="/help">
+                Ask help
+              </Link>
             </li>
             <li>
               <Link to="/register">Register</Link>
@@ -90,31 +92,6 @@ export default function Navbar({ desboard }) {
           </ul>
         </div>
       </div>
-      {desboard ? (
-        <div className="drawer lg:drawer-open " style={{ margin: 0 }}>
-          <input
-            id="my-drawer-2"
-            type="checkbox"
-            className="drawer-toggle"
-            style={{ margin: 0 }}
-          />
-
-          <div className="drawer-side">
-            <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-            <ul className="menu  w-80 h-100 bg-base-200 text-base-content ">
-              {/* Sidebar content here */}
-              <li>
-                <a href="welcome">Sidebar Item 1</a>
-              </li>
-              <li>
-                <a>Sidebar Item 2</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <h1></h1>
-      )}
     </div>
   );
 }

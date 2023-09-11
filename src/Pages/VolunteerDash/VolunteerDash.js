@@ -5,13 +5,18 @@ import { getAuth } from "firebase/auth";
 import app from "../../Firebase/firebase.config";
 import { useNavigate } from "react-router-dom";
 const auth = getAuth(app);
+
 export default function VolunteerDash() {
+  const [displayName, setDisplayName] = useState("Volunteer");
+  const [photoUrl, setPhotoURL] = useState(null);
   const [isUser, setUser] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user && user.email !== "admin123@gmail.com") {
         setUser(true);
+        setDisplayName(user.displayName);
+        setPhotoURL(user.photoURL);
       } else {
         setUser(false);
       }
@@ -37,6 +42,12 @@ export default function VolunteerDash() {
       icon: "",
       divider: false,
     },
+    {
+      route: "chats",
+      name: "My Messages",
+      icon: "",
+      divider: true,
+    },
   ];
   return (
     <div>
@@ -44,14 +55,10 @@ export default function VolunteerDash() {
         <div className="flex bg-gray-100 w-full min-h-screen">
           <div className="w-3/12 bg-white rounded p-3 shadow-lg">
             <div className="flex items-center space-x-4 p-2 mb-5">
-              <img
-                className="h-12 rounded-full"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-                alt="profile"
-              />
+              <img className="h-12 rounded-full" src={photoUrl} alt="profile" />
               <div>
                 <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">
-                  User
+                  {displayName}
                 </h4>
                 {/* <span className="text-sm tracking-wide flex items-center space-x-1">
           icon

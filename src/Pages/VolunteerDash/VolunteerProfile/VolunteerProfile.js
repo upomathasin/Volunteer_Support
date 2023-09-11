@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { fs } from "../../../Firebase/firebase.config";
-import { collection } from "firebase/firestore";
-import { getDocs } from "firebase/firestore";
+
 import { getDoc } from "firebase/firestore";
 import { doc, updateDoc } from "firebase/firestore";
 import { ref } from "firebase/storage";
@@ -26,9 +25,7 @@ export default function VolunteerProfile() {
             .then((doc) => {
               setUser(doc.data());
 
-              getDownloadURL(
-                ref(storage, `images/ProfilePictures/${doc.data().uid}`)
-              )
+              getDownloadURL(ref(storage, doc.data().uid))
                 .then((photoUrl) => {
                   console.log(photoUrl);
                   setUserPhoto(photoUrl);
@@ -57,7 +54,7 @@ export default function VolunteerProfile() {
           borderBottom: "5px solid gray",
         }}
       >
-        {user === {} ? (
+        {user == {} ? (
           <div class="d-flex justify-content-center mt-auto mb-auto">
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
@@ -112,7 +109,7 @@ export default function VolunteerProfile() {
               </div>
               <div className="col-md-8">
                 <div className="card-body">
-                  <h5 className="card-title">Name:{user.name}</h5>
+                  <h5 className="card-title">Name:{user ? user.name : ""}</h5>
                   <p className="card-text">Email:{user.email}</p>
                   <p className="card-text">Phone Number: {user.phone}</p>
                   <p className="card-text">Address: {user.address}</p>

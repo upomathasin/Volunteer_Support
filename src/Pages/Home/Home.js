@@ -9,7 +9,6 @@ export default function Home() {
     <div>
       <TopBanner></TopBanner>
       <Services></Services>
-
       <JoinUs></JoinUs>
       <ContactUs></ContactUs>
     </div>

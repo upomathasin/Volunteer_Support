@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
-
 import Registration from "../../Registration/Registration";
 import VolunteerProfile from "../../Pages/VolunteerDash/VolunteerProfile/VolunteerProfile";
 
@@ -19,6 +18,8 @@ import HelpRequests from "../../Pages/AdminDash/HelpRequests/HelpRequests";
 import Projects from "../../Pages/VolunteerDash/Projects/Projects";
 import AllProjects from "./../../Pages/AdminDash/Projects/AllProjects";
 import AboutUs from "../../AboutUs/AboutUs";
+import Chats from "../../Chats/Chats";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
           {
             path: "projects",
             element: <Projects></Projects>,
+          },
+          {
+            path: "chats",
+            element: <Chats></Chats>,
           },
         ],
       },

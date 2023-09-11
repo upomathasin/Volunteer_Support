@@ -17,7 +17,7 @@ const styles = {
     border: "none",
     borderRadius: "0",
     borderBottom: "1px solid gray",
-    padding: "5px",
+    padding: "8px",
     width: "100%",
   },
   buttonStyles: {
@@ -127,7 +127,18 @@ export default function Registration() {
                   availableArea: "",
                 }
               );
+              updateProfile(auth.currentUser, {
+                displayName: name,
+                photoURL:
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+              })
+                .then(() => {})
+                .catch((err) => console.log(err));
+              setDoc(
+                doc(fs, "volunteersChat", userCredential.user.uid),
 
+                {}
+              );
               navigate("/login");
             })
 
@@ -150,16 +161,13 @@ export default function Registration() {
       <div
         className="row rounded"
         style={{
-          width: "60%",
+          width: "50%",
           boxShadow: "2px 2px 2px 2px #006565",
 
           backgroundColor: "#F2F2F2",
         }}
       >
-        <div className="col-lg-6 col-md-5 col-sm-5  p-5 d-flex justify-center align-items-center">
-          <img src="regBackground2.png" className="img-fluid" />
-        </div>
-        <div className="col-lg-6 col-md-5 col-sm-5 ">
+        <div>
           <h2
             className="h2 mt-4"
             style={{
@@ -231,6 +239,7 @@ export default function Registration() {
                 onChange={(event) => setConPassword(event.target.value)}
               />
             </div>
+
             <p style={{ color: "red" }}>{validate ? " " : error}</p>
             <button
               type="submit"
