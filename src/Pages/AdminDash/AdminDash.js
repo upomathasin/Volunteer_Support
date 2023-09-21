@@ -15,6 +15,7 @@ export default function AdminDash() {
       if (user.email != "admin123@gmail.com") {
         setAdmin(false);
         console.log(user.email);
+        
         alert("You don not have permission to access this page.");
       } else {
         setAdmin(true);

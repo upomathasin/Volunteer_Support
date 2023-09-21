@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import { fs } from "../Firebase/firebase.config";
 import { collection } from "firebase/firestore";
-import ChatBubble from "react-chat-bubble";
 
 const auth = getAuth();
 
@@ -28,7 +27,26 @@ export default function Chats() {
     auth.onAuthStateChanged((volunteer) => {
       if (volunteer) {
         setVolunteer(volunteer);
-        getDocs(collection(fs, "volunteers")).then((querySnapshot) => {
+        // getDocs(collection(fs, "volunteers")).then((querySnapshot) => {
+        //   const usersInfo = [];
+        //   querySnapshot.forEach((doc) => {
+        //     const userInfo = {
+        //       uid: doc.data().uid,
+        //       name: doc.data().name,
+        //       email: doc.data().email,
+        //       phone: doc.data().phone,
+        //       address: doc.data().address,
+        //       imageRef: doc.data().imageRef,
+        //       availableArea: doc.data().availableArea,
+        //     };
+
+        //     usersInfo.push(userInfo);
+        //     setUsers(usersInfo);
+        //   });
+        //   console.log(usersInfo[0]);
+        // });
+
+        onSnapshot(query(collection(fs, "volunteers")), (querySnapshot) => {
           const usersInfo = [];
           querySnapshot.forEach((doc) => {
             const userInfo = {
@@ -44,7 +62,6 @@ export default function Chats() {
             usersInfo.push(userInfo);
             setUsers(usersInfo);
           });
-          console.log(usersInfo[0]);
         });
       }
     });
@@ -63,6 +80,10 @@ export default function Chats() {
         text: newMessage,
         sender: currentUserId,
         timestamp: serverTimestamp(),
+        senderName: auth.currentUser.displayName,
+        receiverName: selectedUser.name,
+        senderPhoto: auth.currentUser.photoURL,
+        receiverPhoto: selectedUser.imageRef,
       };
 
       const messagesRef = collection(fs, "chats", chatRoomId, "messages");
@@ -96,14 +117,24 @@ export default function Chats() {
   return (
     <div className="p-4 m-4  bg-slate-500  max-h-100  ">
       <div className="p-4">
-        <div>
-          <h1 className="text-center h3 bg-slate-600 text-white p-2">
-            Messaging
-          </h1>
-        </div>
         <div className="grid grid-cols-2 gap-4  ">
-          <div className="  p-2   ">
-            Chats
+          <div className="    ">
+            <div>
+              <div style={{ width: "100%" }}>
+                <div className="border-b-2 text-center flex items-center px-3">
+                  <div className="avatar me-4">
+                    <div className="w-12 rounded-full">
+                      <img src={auth.currentUser.photoURL} />
+                    </div>
+                  </div>
+                  <h3 className="py-3 h5 ">
+                    <span className="  font-bold" style={{ color: "wheat" }}>
+                      {auth.currentUser.displayName}
+                    </span>
+                  </h3>
+                </div>
+              </div>
+            </div>
             <ul>
               {users
                 .filter((user) => user.uid !== volunteer.uid)
@@ -126,40 +157,57 @@ export default function Chats() {
           <div>
             {selectedUser ? (
               <div style={{ width: "100%" }}>
-                <h3 className="py-4 h5 border-b-2 text-center">
-                  <span className="  font-bold" style={{ color: "wheat" }}>
-                    {selectedUser.name}
-                  </span>
-                </h3>
+                <div className="border-b-2 text-center flex items-center px-3">
+                  <div className="avatar me-4">
+                    <div className="w-12 rounded-full">
+                      <img src={selectedUser.imageRef} />
+                    </div>
+                  </div>
+                  <h3 className="py-3 h5 ">
+                    <span className="  font-bold" style={{ color: "wheat" }}>
+                      {selectedUser.name}
+                    </span>
+                  </h3>
+                </div>
+
                 <div>
                   <ul className="d-flex flex-col p-4 overflow-y-scroll  h-96  ">
                     {messages.map((message, index) => (
-                      <li
-                        className={`${
-                          currentUserId === message.sender
-                            ? " bg-indigo-300 mb-2  ml-auto "
-                            : " bg-indigo-500 mb-2 "
-                        }`}
-                        style={{
-                          padding: "10px",
-                          borderRadius: `${
-                            currentUserId === message.sender
-                              ? "20px 20px 0px 20px"
-                              : "0px 20px 20px 20px"
-                          }`,
-
-                          width: "50%",
-                        }}
-                        key={index}
-                      >
-                        {message.sender === currentUserId ? (
-                          <span className="font-bold">You: </span>
+                      <li key={index}>
+                        {currentUserId === message.sender ? (
+                          <div className="chat chat-end">
+                            <div className="chat-image avatar">
+                              <div className="w-10 rounded-full">
+                                <img src={message.senderPhoto} />
+                              </div>
+                            </div>
+                            <div className="chat-header">
+                              {message.senderName}
+                            </div>
+                            <div className="chat-bubble ">{message.text}</div>
+                            <time className="text-xs opacity-50">
+                              {message.timestamp &&
+                                message.timestamp.toDate().toLocaleString()}
+                            </time>
+                          </div>
                         ) : (
-                          <span className="font-bold">
-                            {selectedUser.name}:{" "}
-                          </span>
+                          <div className="chat chat-start">
+                            <div className="chat-image avatar">
+                              <div className="w-10 rounded-full">
+                                <img src={selectedUser.imageRef} />
+                              </div>
+                            </div>
+                            <div className="chat-header">
+                              {selectedUser.name}
+                              <time className="text-xs opacity-50"></time>
+                            </div>
+                            <div className="chat-bubble ">{message.text}</div>
+                            <div className="chat-footer opacity-50">
+                              {message.timestamp &&
+                                message.timestamp.toDate().toLocaleString()}
+                            </div>
+                          </div>
                         )}
-                        <span>{message.text}</span>
                       </li>
                     ))}
                   </ul>

@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getDocs } from "firebase/firestore";
 import { fs } from "../../../Firebase/firebase.config";
 import { useEffect } from "react";
-import { collection } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 const auth = getAuth();
 
@@ -13,7 +13,26 @@ export default function AllVolunteers() {
   useEffect(() => {
     auth.onAuthStateChanged((volunteer) => {
       if (volunteer) {
-        getDocs(collection(fs, "volunteers")).then((querySnapshot) => {
+        // getDocs(collection(fs, "volunteers")).then((querySnapshot) => {
+        //   const usersInfo = [];
+        //   querySnapshot.forEach((doc) => {
+        //     const userInfo = {
+        //       uid: doc.data().uid,
+        //       name: doc.data().name,
+        //       email: doc.data().email,
+        //       phone: doc.data().phone,
+        //       address: doc.data().address,
+        //       imageRef: doc.data().imageRef,
+        //       availableArea: doc.data().availableArea,
+        //     };
+
+        //     usersInfo.push(userInfo);
+        //     setUsers(usersInfo);
+        //   });
+        //   console.log(usersInfo[0]);
+        // });
+
+        onSnapshot(query(collection(fs, "volunteers")), (querySnapshot) => {
           const usersInfo = [];
           querySnapshot.forEach((doc) => {
             const userInfo = {
@@ -29,7 +48,6 @@ export default function AllVolunteers() {
             usersInfo.push(userInfo);
             setUsers(usersInfo);
           });
-          console.log(usersInfo[0]);
         });
       }
     });

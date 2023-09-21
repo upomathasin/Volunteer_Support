@@ -50,6 +50,9 @@ export default function Navbar() {
                 <Link to="/login">Log In</Link>
               </li>
               <li>
+                <Link to="/logout">Logout</Link>
+              </li>
+              <li>
                 <Link to="/about">About Us</Link>
               </li>
             </ul>
@@ -70,15 +73,13 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link className="nav-link text-white " to="/help">
-                Ask help
-              </Link>
-            </li>
-            <li>
               <Link to="/register">Register</Link>
             </li>
             <li>
               <Link to="/login">Log In</Link>
+            </li>
+            <li>
+              <Link to="/logout">Logout</Link>
             </li>
             <li>
               <Link to="/admin/volunteers">Admin Dashboard</Link>

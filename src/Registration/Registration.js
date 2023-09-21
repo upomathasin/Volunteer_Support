@@ -105,7 +105,6 @@ export default function Registration() {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log(userCredential);
-          const useremail = userCredential.user.email;
 
           sendEmailVerification(auth.currentUser)
             .then(() => {
@@ -118,7 +117,7 @@ export default function Registration() {
 
                 {
                   uid: userCredential.user.uid,
-                  name: name,
+
                   email: email,
                   address: address,
                   phone: phone,

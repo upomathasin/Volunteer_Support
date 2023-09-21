@@ -19,6 +19,7 @@ import Projects from "../../Pages/VolunteerDash/Projects/Projects";
 import AllProjects from "./../../Pages/AdminDash/Projects/AllProjects";
 import AboutUs from "../../AboutUs/AboutUs";
 import Chats from "../../Chats/Chats";
+import Logout from "../../Logout/Logout";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "/help",
         element: <Help></Help>,
+      },
+      {
+        path: "/logout",
+        element: <Logout></Logout>,
       },
       {
         path: "/login",
